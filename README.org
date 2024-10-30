@@ -1,0 +1,14 @@
+* scream - an s-expression based c frontend
+scream is a transpiler that was born solely out of my realisation that
+Scheme, or atleast Guile Scheme, had a ~read~ builtin, that read a
+file in as an s-expression.
+
+if the parsing is already done for me, and if i decide to target C as
+my backend, i could make a usable programming language. and i did!
+i made this first commit on the same day i started it and it already
+works, enough to run the [[./source.sc][example]]. and it's under 100 LOC (which will
+change soon, i assume, but even so thats impressive imo).
+
+note: this is my first ever scheme program, i made this to learn
+scheme before migrating to Guix. i wouldn't wanna run my entire OS on
+a language i didn't know anything about...
