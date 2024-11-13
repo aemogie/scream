@@ -1,6 +1,6 @@
 ;; -*- mode: scheme; -*- close enough
 
-(include "<stdio.h>")
+(include <stdio.h>)
 
 (fn (int add (int x) (int y))
   (return (+ x y)))
