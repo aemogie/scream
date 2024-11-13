@@ -5,9 +5,10 @@
 (fn (int add (int x) (int y))
   (return (+ x y)))
 
-(fn (char* greet ())
+(fn (char* greet)
   (return "Hello, World!"))
 
 (fn (int main (int argc) (char** argv))
-  (printf "%s %d" (greet) (add 3 4))
+  (printf "%s %d" (greet) (add 9 4))
   (return 0))
+

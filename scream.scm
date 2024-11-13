@@ -34,15 +34,23 @@
     ((fn args ...)
      (format #f "~a(~{~a~^, ~})" fn (map transpile args)))))
 
-;; TODO: make the filenames CLI arguments
-(call-with-output-file "out.c"
-  (lambda (out)
-    (display
-     (call-with-input-file "source.sc"
-       (lambda (source)
-	 (let loop ((src "")
-		    (expr (read source)))
-	   (if (not (eof-object? expr))
-	       (loop (string-append src (transpile expr) "\n") (read source))
-	       src))))
-     out)))
+(define (read-all port)
+  (let go ((curr (read port))
+	    (acc '()))
+    (if (not (eof-object? curr))
+	(go (read port) (append acc (list curr)))
+	acc)))
+
+(define (main args)
+  (match args
+    ((_ input "-o" output)
+     (call-with-input-file input
+       (lambda (input)
+	 (call-with-output-file output
+	   (lambda (output)
+	     (define source (read-all input))
+	     (define transpiled (string-join (map transpile source) "\n"))
+	     (display transpiled output))))))
+    ((guile input) (main (list guile input "-o" "out.c")))
+    ((guile) (main (list guile "example.sc" "-o" "out.c")))))
+(main (program-arguments))
